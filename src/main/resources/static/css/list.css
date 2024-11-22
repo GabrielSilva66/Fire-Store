@@ -1,0 +1,32 @@
+.btn-edit {
+    color: #0d6efd;
+}
+
+.btn-delete {
+    color: #dc3545;
+}
+
+.btn-edit:hover {
+    color: #084298;
+}
+
+.btn-delete:hover {
+    color: #a71d2a;
+}
+
+.table-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.table {
+    margin-bottom: 20px;
+}
+
+/* Ajuste no botão voltar */
+.btn-danger {
+    margin-top: 10px;
+}

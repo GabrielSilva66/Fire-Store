@@ -1,0 +1,23 @@
+.menu-lateral {
+    background-color: #f8f9fa;
+    padding: 15px;
+    min-height: 100vh;
+    border-right: 1px solid #ddd;
+}
+.conteudo-geral {
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.menu-lateral .active {
+    background-color: #343a40 !important;
+    color: #fff !important;
+}
+.conteudo-geral h1 {
+    font-size: 2rem;
+    color: #343a40;
+}
+.navbar .form-control {
+    max-width: 300px;
+}
