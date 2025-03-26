@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragment/layout :: head('FireStore - Funcionarios', '../../static/css/list.css')}"></head>
+<head th:replace="~{fragment/layout :: head('FireStore - Clientes', '../../static/css/list.css')}"></head>
 
 <body>
 
@@ -24,7 +24,6 @@
             <tr>
               <!--                <th>ID</th>-->
               <th>Nome</th>
-              <th>Cargo</th>
               <th>Email</th>
               <th>Telefone</th>
               <th>Endereço</th>
@@ -32,24 +31,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="employee : ${employeeList}">
-              <td th:text="${employee.name}"></td>
-              <td th:text="${employee.role}"></td>
-              <td th:text="${employee.email}"></td>
-              <td th:text="${employee.telephone}"></td>
+            <tr th:each="intake : ${intakeList}">
+              <td th:text="${intake.name}"></td>
+              <td th:text="${intake.email}"></td>
+              <td th:text="${intake.telephone}"></td>
               <td>
-                <a th:href="@{/address/edit/EMPLOYEE/{id}(id=${employee.id})}"
-                   th:text="${employee.address != null ? 'Editar Endereço' : 'Registrar Endereço'}">
+                <a th:href="@{/address/edit/EMPLOYEE/{id}(id=${intake.id})}"
+                   th:text="${intake.address != null ? 'Editar Endereço' : 'Registrar Endereço'}">
                 </a>
               </td>
 
               <td class="text-center d-flex justify-content-center align-items-center gap-2">
-                <a th:href="@{/employee/edit/{id}(id=${employee.id})}"
+                <a th:href="@{/intake/edit/{id}(id=${intake.id})}"
                    class="btn btn-warning btn-sm d-flex align-items-center justify-content-center"
                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </a>
-                <a th:href="@{/employee/delete/{id}(id=${employee.id})}"
+                <a th:href="@{/intake/delete/{id}(id=${intake.id})}"
                    class="btn btn-danger btn-sm d-flex align-items-center justify-content-center"
                    data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
                   <i class="fa-solid fa-trash"></i>
@@ -59,7 +57,7 @@
             </tbody>
           </table>
         </div>
-        <a href="/employee/register" class="btn btn-primary">Novo Funcionário</a>
+        <a href="/intake/register" class="btn btn-primary">Novo Cliente</a>
       </div>
     </main>
   </div>

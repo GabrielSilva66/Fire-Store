@@ -1,3 +1,15 @@
+/* Botões de editar e excluir */
+.table td .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.table td .btn + .btn {
+    margin-left: 5px;
+}
+
 .btn-edit {
     color: #0d6efd;
 }
@@ -14,6 +26,13 @@
     color: #a71d2a;
 }
 
+/* Células da tabela */
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Layout geral */
 .table-container {
     background-color: #ffffff;
     padding: 20px;
@@ -27,6 +46,6 @@
 }
 
 /* Ajuste no botão voltar */
-.btn-danger {
+.main-content .btn-danger {
     margin-top: 10px;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragment/layout :: head('FireStore - Funcionarios', '../../static/css/list.css')}"></head>
+<head th:replace="~{fragment/layout :: head('FireStore - Produtos', '../../static/css/list.css')}"></head>
 
 <body>
 
@@ -17,39 +17,42 @@
     <!-- Conteúdo Principal -->
     <main class="col-md-9 conteudo-geral">
       <div class="container table-container">
-        <h2 class="text-center mb-4">Lista de Funcionários</h2>
+        <h2 class="text-center mb-4">Lista de Fornecedores</h2>
         <div class="table-responsive">
           <table class="table table-hover table-bordered" id="myTable">
             <thead class="table-dark">
             <tr>
               <!--                <th>ID</th>-->
               <th>Nome</th>
-              <th>Cargo</th>
-              <th>Email</th>
-              <th>Telefone</th>
-              <th>Endereço</th>
+              <th>Unidade de Medida</th>
+              <th>Preço de Custo</th>
+              <th>Preço de Venda</th>
+              <th>Código de Barra</th>
+              <th>Estoque</th>
               <th>Ações</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="employee : ${employeeList}">
-              <td th:text="${employee.name}"></td>
-              <td th:text="${employee.role}"></td>
-              <td th:text="${employee.email}"></td>
-              <td th:text="${employee.telephone}"></td>
+            <tr th:each="product : ${productList}">
+              <td th:text="${product.name}"></td>
+              <td th:text="${product.costPrice}"></td>
+              <td th:text="${product.salePrice}"></td>
+              <td th:text="${product.unitMeasure}"></td>
+              <td th:text="${product.stock}"></td>
+              <td th:text="${product.codeBar}"></td>
               <td>
-                <a th:href="@{/address/edit/EMPLOYEE/{id}(id=${employee.id})}"
-                   th:text="${employee.address != null ? 'Editar Endereço' : 'Registrar Endereço'}">
+                <a th:href="@{/address/edit/EMPLOYEE/{id}(id=${product.id})}"
+                   th:text="${product.address != null ? 'Editar Endereço' : 'Registrar Endereço'}">
                 </a>
               </td>
 
               <td class="text-center d-flex justify-content-center align-items-center gap-2">
-                <a th:href="@{/employee/edit/{id}(id=${employee.id})}"
+                <a th:href="@{/product/edit/{id}(id=${product.id})}"
                    class="btn btn-warning btn-sm d-flex align-items-center justify-content-center"
                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </a>
-                <a th:href="@{/employee/delete/{id}(id=${employee.id})}"
+                <a th:href="@{/product/delete/{id}(id=${product.id})}"
                    class="btn btn-danger btn-sm d-flex align-items-center justify-content-center"
                    data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
                   <i class="fa-solid fa-trash"></i>
@@ -59,7 +62,7 @@
             </tbody>
           </table>
         </div>
-        <a href="/employee/register" class="btn btn-primary">Novo Funcionário</a>
+        <a href="/product/register" class="btn btn-primary">Novo Produto</a>
       </div>
     </main>
   </div>

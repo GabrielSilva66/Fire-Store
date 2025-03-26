@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz.thymeleaf/Layout">
-<head th:replace="~{fragment/layout :: head('FireStore - Cadastro de Funcionario', '../../static/register.css')}"></head>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:replace="~{fragment/layout :: head('FireStore - Cadastro de Fornecedor', '../../static/register.css')}"></head>
 
 <body>
 
@@ -17,25 +17,25 @@
         <main class="col-md-9 conteudo-geral">
             <div class="container my-5">
                 <div class="form-container mx-auto col-md-6">
-                    <h2 class="mb-4 text-center">Cadastrar Funcionário</h2>
-                    <form action="/employee/save" th:object="${employee}" method="POST">
+                    <h2 class="mb-4 text-center">Cadastrar Fornecedor</h2>
+                    <form action="/supplier/save" th:object="${supplier}" method="POST">
                         <input type="hidden" th:field="*{id}">
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Nome:</label>
-                            <input type="text" class="form-control" id="name" th:field="*{name}" required aria-label="Employee Name">
+                            <input type="text" class="form-control" id="name" th:field="*{name}" required aria-label="Supplier Name">
                         </div>
                         <div class="mb-3">
-                            <label for="role" class="form-label">Cargo:</label>
-                            <input type="text" class="form-control" id="role" th:field="*{role}" required aria-label="Employee Role">
+                            <label for="cnpj" class="form-label">CNPJ:</label>
+                            <input type="text" class="form-control" id="cnpj" th:field="*{cnpj}" required aria-label="Supplier CNPJ">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email:</label>
-                            <input type="email" class="form-control" id="email" th:field="*{email}" required aria-label="Employee Email">
+                            <input type="email" class="form-control" id="email" th:field="*{email}" required aria-label="Supplier Email">
                         </div>
                         <div class="mb-3">
                             <label for="telephone" class="form-label">Telefone:</label>
-                            <input type="text" class="form-control" id="telephone" th:field="*{telephone}" pattern="\d*" required aria-label="Employee Telephone" title="Digite apenas números">
+                            <input type="text" class="form-control" id="telephone" th:field="*{telephone}" required aria-label="Supplier Telephone">
                         </div>
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -48,12 +48,10 @@
     </div>
 </div>
 
-
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/0.9.0/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="../../static/js/mask.js"></script>
-
 </body>
 </html>

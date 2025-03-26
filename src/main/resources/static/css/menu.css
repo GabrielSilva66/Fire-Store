@@ -1,23 +1,40 @@
 .menu-lateral {
+    width: 250px;
+    height: 100vh;
     background-color: #f8f9fa;
     padding: 15px;
-    min-height: 100vh;
-    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
-.conteudo-geral {
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+.menu-lateral h5 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #333;
 }
-.menu-lateral .active {
-    background-color: #343a40 !important;
-    color: #fff !important;
+
+.menu-lateral .list-group {
+    margin-top: 10px;
 }
-.conteudo-geral h1 {
-    font-size: 2rem;
-    color: #343a40;
+
+.menu-lateral .list-group-item {
+    font-size: 1rem;
+    padding: 10px 15px;
+    border: none;
 }
-.navbar .form-control {
-    max-width: 300px;
+
+.menu-lateral .list-group-item:hover,
+.menu-lateral .list-group-item.active {
+    background-color: #343a40 ;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .menu-lateral {
+        width: 100%;
+        height: auto;
+    }
+
+    .menu-lateral .list-group-item {
+        text-align: center;
+    }
 }
