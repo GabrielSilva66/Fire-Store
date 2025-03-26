@@ -28,16 +28,16 @@ public class Intake implements Serializable {
 
     @NotNull(message = "Total value is required")
     @Positive(message = "Total value must be positive")
-    private Double totalValue;
+    private Double totalValue = 0.00;
 
     @NotNull(message = "Total quantity is required")
     @Positive(message = "Total quantity must be positive")
-    private Double totalQuantity;
+    private Double totalQuantity = 0.00;
 
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Date is required")  // Garante que a data não será nula
-    private Date date;
+    private Date date = new Date();
 
     @ManyToOne
     @JoinColumn(name = "employee_id")

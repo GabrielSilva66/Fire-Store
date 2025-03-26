@@ -33,18 +33,22 @@ public class Product  implements Serializable {
 
     @NotBlank(message = "Code bar is required")
     @Size(max = 100, message = "Code bar must not exceed 100 characters")
+    @Column(name = "code_bar")
     private String codeBar;
 
     @NotBlank(message = "Unit of measure is required")
     @Size(max = 50, message = "Unit of measure must not exceed 50 characters")
+    @Column(name = "unit_measure")
     private String unitMeasure;
 
     @NotNull(message = "Cost price is required")
     @PositiveOrZero(message = "Cost price must be zero or positive")
+    @Column(name = "cost_price")
     private Double costPrice;
 
     @NotNull(message = "Sale price is required")
     @PositiveOrZero(message = "Sale price must be zero or positive")
+    @Column(name = "sale_price")
     private Double salePrice;
 
     @NotNull(message = "Stock is required")

@@ -21,7 +21,7 @@ public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Country is required") // Não aceita nulo ou vazio
@@ -41,11 +41,12 @@ public class Address implements Serializable {
     private String neighborhood;
 
     @NotBlank(message = "CEP is required")
-    @Size(max = 8, message = "CEP must have 8 characters")
+    @Pattern(regexp = "\\d{8}", message = "CEP must have 8 characters.")
     private String cep;
 
     @NotNull(message = "Number is required")
     @Min(value = 1, message = "Number must be greater than or equal to 1")
+    @Digits(integer = 10, fraction = 0, message = "Número deve ser numérico.")
     private Integer number;
 
 }
