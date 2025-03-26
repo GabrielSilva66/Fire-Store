@@ -1,4 +1,4 @@
-package com.project.system.controller;
+package com.project.system.controller.employee;
 
 
 import com.project.system.models.Employee;
@@ -24,25 +24,25 @@ public class EmployeeController {
     EmployeeRepository employeeRepository;
 
     @GetMapping("/employee/register")
-    public ModelAndView registerEmployee(Employee employee){
+    public ModelAndView registerEmployee(Employee employee) {
         ModelAndView mv = new ModelAndView("/employee/register");
-        return  mv.addObject("employee", employee);
+        return mv.addObject("employee", employee);
     }
 
 
     @GetMapping("/employees")
-    public ModelAndView listActiveEmployee(){
+    public ModelAndView listActiveEmployee() {
         ModelAndView mv = new ModelAndView("/employee/list");
 
         mv.addObject("activePage", "employees");
-        List<Employee> activeEmployees= employeeRepository.findActiveEmployee();
+        List<Employee> activeEmployees = employeeRepository.findActiveEmployee();
 
         mv.addObject("employeeList", activeEmployees);
-        return  mv;
+        return mv;
     }
 
     @GetMapping("/employee/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") Long id){
+    public ModelAndView edit(@PathVariable("id") Long id) {
         Optional<Employee> employee = employeeRepository.findById(id);
         if (employee.isPresent()) {
             ModelAndView mv = new ModelAndView("/employee/register");
@@ -59,9 +59,9 @@ public class EmployeeController {
 
         if (employee.isPresent()) {
             employeeRepository.updateEmployeeStatus(id, false);  // Desativa o estado (false)
-            redirectAttributes.addFlashAttribute("message", "Estado marcado como inativo com sucesso!");
+            redirectAttributes.addFlashAttribute("message", "Funcionario marcado como inativo com sucesso!");
         } else {
-            redirectAttributes.addFlashAttribute("error", "Estado não encontrado!");
+            redirectAttributes.addFlashAttribute("error", "Funcionario não encontrado!");
         }
 
         return listActiveEmployee();
@@ -69,11 +69,31 @@ public class EmployeeController {
 
 
     @PostMapping("/employee/save")
-    public ModelAndView save (@Valid Employee employee, BindingResult result){
-        if(result.hasErrors()){
+    public ModelAndView save(@Valid Employee employee, BindingResult result) {
+        if (result.hasErrors()) {
             return registerEmployee(employee);
         }
-        employeeRepository.save(employee);
+
+        // Verifica se o ID existe e é válido
+        if (employee.getId() != null) {
+            Optional<Employee> existingEmployee = employeeRepository.findById(employee.getId());
+            if (existingEmployee.isPresent()) {
+                // Atualiza o funcionário existente
+                Employee employeeToUpdate = existingEmployee.get();
+                employeeToUpdate.setName(employee.getName());
+                employeeToUpdate.setEmail(employee.getEmail());
+                employeeToUpdate.setRole(employee.getRole());
+
+                employeeRepository.save(employeeToUpdate);
+            } else {
+                // Caso o ID seja inválido, salva como novo funcionário
+                employeeRepository.save(employee);
+            }
+        } else {
+            // Caso não haja ID, salva como novo funcionário
+            employeeRepository.save(employee);
+        }
+
         return new ModelAndView("redirect:/employees");
     }
 }

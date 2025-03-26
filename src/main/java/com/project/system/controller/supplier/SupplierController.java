@@ -1,4 +1,4 @@
-package com.project.system.controller;
+package com.project.system.controller.supplier;
 
 
 import com.project.system.models.Supplier;
@@ -58,9 +58,9 @@ public class SupplierController {
 
         if (supplier.isPresent()) {
             supplierRepository.updateSupplierStatus(id, false);  // Desativa o estado (false)
-            redirectAttributes.addFlashAttribute("message", "Estado marcado como inativo com sucesso!");
+            redirectAttributes.addFlashAttribute("message", "Fornecedor marcado como inativo com sucesso!");
         } else {
-            redirectAttributes.addFlashAttribute("error", "Estado não encontrado!");
+            redirectAttributes.addFlashAttribute("error", "Fornecedor não encontrado!");
         }
 
         return listActiveSupplier();
