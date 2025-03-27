@@ -16,15 +16,12 @@ public class CustomErrorController implements ErrorController {
         if (status != null) {
             int statusCode = (Integer) status;
             if (statusCode == 404) {
-                // Redireciona para a página de erro 404
                 return "/error/404";
             } else if (statusCode == 500) {
-                // Redireciona para a página de erro 500
                 return "/error/500";
             }
         }
 
-        // Caso não seja 404 ou 500, redireciona para uma página genérica de erro
         return "error/error";
     }
 

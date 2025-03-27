@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "rl_item_intake")
+@Table(name = "rl_item_order")
 public class ItemOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;

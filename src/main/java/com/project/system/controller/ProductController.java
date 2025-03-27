@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,9 +20,9 @@ import java.util.Optional;
 @Controller
 public class ProductController {
 
-    @Autowired
     private final ProductRepository productRepository;
 
+    @Autowired
     public ProductController(ProductRepository productRepository){
         this.productRepository = productRepository;
     }
@@ -33,6 +34,7 @@ public class ProductController {
         ModelAndView mv = new ModelAndView("/product/register");
         return  mv.addObject("product", product);
     }
+
 
 
     @GetMapping("/products")
@@ -54,7 +56,7 @@ public class ProductController {
             mv.addObject("product", product.get());
             return mv;
         } else {
-            return listProduct(); // Se o funcionário não for encontrado
+            return listProduct();
         }
     }
 
@@ -64,9 +66,9 @@ public class ProductController {
 
         if (product.isPresent()) {
             productRepository.deleteById(id);
-            redirectAttributes.addFlashAttribute("message", "Produto deletado!");
+            redirectAttributes.addFlashAttribute("message", "Deleted product!");
         } else {
-            redirectAttributes.addFlashAttribute("error", "Produto não encontrado!");
+            redirectAttributes.addFlashAttribute("error", "Product not found!");
         }
 
         return listProduct();
@@ -78,6 +80,8 @@ public class ProductController {
         if(result.hasErrors()){
             return registerProduct(product);
         }
+        product.setCostPrice(new BigDecimal(product.getCostPrice().toString().replace(",", ".")));
+
         productRepository.save(product);
         return new ModelAndView("redirect:/products");
     }

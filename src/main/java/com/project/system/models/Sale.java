@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -37,16 +38,22 @@ public class Sale implements Serializable {
     @Positive(message = "Total quantity must be positive")
     private Double totalQuantity;
 
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    @NotNull(message = "Date is required")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Column(name = "date", nullable = false)
+    private LocalDateTime date;
+
+    @PrePersist
+    public void onPrePersist() {
+        this.date = LocalDateTime.now();
+    }
 
     @ManyToOne
     @JoinColumn(name = "employee_id")  // Adicionando a coluna de relacionamento
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name = "supplier_id")  // Adicionando a coluna de relacionamento
-    private Supplier supplier;
+    @JoinColumn(name = "customer_id")  // Adicionando a coluna de relacionamento
+    private Customer customer;
 
 }

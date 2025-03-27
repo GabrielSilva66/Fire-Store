@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -14,7 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "tb_intake")
+@Table(name = "tb_order")
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,10 +35,15 @@ public class Order implements Serializable {
     @Positive(message = "Total quantity must be positive")
     private Double totalQuantity = 0.00;
 
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "Date is required")  // Garante que a data não será nula
-    private Date date = new Date();
+    @NotNull(message = "Date is required")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    @Column(name = "date", nullable = false)
+    private LocalDateTime date;
+
+    @PrePersist
+    public void onPrePersist() {
+        this.date = LocalDateTime.now();
+    }
 
     @ManyToOne
     @JoinColumn(name = "employee_id")

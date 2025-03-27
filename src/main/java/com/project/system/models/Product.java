@@ -11,6 +11,7 @@ import jakarta.validation.constraints.*;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Setter
 @Getter
@@ -44,15 +45,19 @@ public class Product  implements Serializable {
     @NotNull(message = "Cost price is required")
     @PositiveOrZero(message = "Cost price must be zero or positive")
     @Column(name = "cost_price")
-    private Double costPrice;
+    private BigDecimal costPrice;
 
     @NotNull(message = "Sale price is required")
     @PositiveOrZero(message = "Sale price must be zero or positive")
     @Column(name = "sale_price")
-    private Double salePrice;
+    private BigDecimal salePrice;
 
     @NotNull(message = "Stock is required")
     @PositiveOrZero(message = "Stock must be zero or positive")
-    private Double stock;
+    private BigDecimal stock;
+
+    @Column(name = "picture_url", nullable = true)
+    @Size(max = 255, message = "Picture URL must not exceed 255 characters")
+    private String pictureUrl;
 
 }

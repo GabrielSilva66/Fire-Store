@@ -27,12 +27,10 @@ public class ItemSale implements Serializable {
     private Double value;
     private Double quantity;
 
-    // Relacionamento com a tabela Sale
     @ManyToOne
     @JoinColumn(name = "sale_id")
     private Sale sale;
 
-    // Relacionamento com a tabela Product
     @ManyToOne
     @JoinColumn(name = "product_id" )
     private Product product;
