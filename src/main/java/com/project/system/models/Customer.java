@@ -46,6 +46,8 @@ public class Customer implements Serializable  {
     @Pattern(regexp = "\\d{0,13}", message = "Telephone must contain only numbers") // Validação adicional
     private String telephone;
 
+    private boolean is_active= true;
+
 
     @OneToOne
     @JoinColumn(name = "address_id")

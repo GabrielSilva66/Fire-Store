@@ -1,4 +1,4 @@
-package com.project.system.controller.employee;
+package com.project.system.controller;
 
 
 import com.project.system.models.Employee;
@@ -20,8 +20,12 @@ import java.util.Optional;
 @Controller
 public class EmployeeController {
 
+    private final EmployeeRepository employeeRepository;
+
     @Autowired
-    EmployeeRepository employeeRepository;
+    public EmployeeController(EmployeeRepository employeeRepository){
+        this.employeeRepository = employeeRepository;
+    }
 
     @GetMapping("/employee/register")
     public ModelAndView registerEmployee(Employee employee) {
@@ -58,7 +62,7 @@ public class EmployeeController {
         Optional<Employee> employee = employeeRepository.findById(id);
 
         if (employee.isPresent()) {
-            employeeRepository.updateEmployeeStatus(id, false);  // Desativa o estado (false)
+            employeeRepository.updateEmployeeStatus(id, false);
             redirectAttributes.addFlashAttribute("message", "Funcionario marcado como inativo com sucesso!");
         } else {
             redirectAttributes.addFlashAttribute("error", "Funcionario não encontrado!");
@@ -74,7 +78,6 @@ public class EmployeeController {
             return registerEmployee(employee);
         }
 
-        // Verifica se o ID existe e é válido
         if (employee.getId() != null) {
             Optional<Employee> existingEmployee = employeeRepository.findById(employee.getId());
             if (existingEmployee.isPresent()) {
@@ -86,11 +89,9 @@ public class EmployeeController {
 
                 employeeRepository.save(employeeToUpdate);
             } else {
-                // Caso o ID seja inválido, salva como novo funcionário
                 employeeRepository.save(employee);
             }
         } else {
-            // Caso não haja ID, salva como novo funcionário
             employeeRepository.save(employee);
         }
 

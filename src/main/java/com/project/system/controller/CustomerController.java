@@ -1,4 +1,4 @@
-package com.project.system.controller.customer;
+package com.project.system.controller;
 
 
 import com.project.system.models.Customer;
@@ -19,8 +19,12 @@ import java.util.Optional;
 @Controller
 public class CustomerController {
 
+    private final CustomerRepository customerRepository;
+
     @Autowired
-    CustomerRepository customerRepository;
+    public CustomerController(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
+    }
 
     @GetMapping("/customer/register")
     public ModelAndView registerCustomer(Customer customer){

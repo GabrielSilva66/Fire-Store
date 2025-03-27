@@ -1,4 +1,4 @@
-package com.project.system.controller.address;
+package com.project.system.controller;
 
 import com.project.system.models.*;
 import com.project.system.repositories.*;
@@ -16,17 +16,20 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class AddressController {
 
-    @Autowired
-    private AddressRepository addressRepository;
+    private final AddressRepository addressRepository;
+    private final CustomerRepository customerRepository;
+    private final EmployeeRepository employeeRepository;
+    private final SupplierRepository supplierRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    public AddressController(AddressRepository addressRepository, CustomerRepository customerRepository,
+                             EmployeeRepository employeeRepository, SupplierRepository supplierRepository ){
+        this.addressRepository = addressRepository;
+        this.customerRepository = customerRepository;
+        this.employeeRepository = employeeRepository;
+        this.supplierRepository = supplierRepository;
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Autowired
-    private SupplierRepository supplierRepository;
+    }
 
     @GetMapping("/address/register")
     public ModelAndView registerAddress(Address address,
@@ -89,13 +92,6 @@ public class AddressController {
             default -> throw new IllegalArgumentException("Invalid entity type");
         }
 
-        // Obtém o URL da página anterior (referer)
-//        String referer = request.getHeader("Referer");
-//
-//        // Verifica se o cabeçalho Referer está presente, caso contrário, redireciona para uma página padrão
-//        if (referer != null) {
-//            return new ModelAndView("redirect:/" + referer);
-//        }
         return new ModelAndView("redirect:/system");
     }
 

@@ -6,6 +6,7 @@ CREATE TABLE tb_employee(
     email VARCHAR(150) NOT NULL,
     telephone DECIMAL(13, 0),
     address_id BIGINT,
+    is_active BOOLEAN DEFAULT TRUE,
 
    FOREIGN KEY (address_id) REFERENCES tb_address(id)
 

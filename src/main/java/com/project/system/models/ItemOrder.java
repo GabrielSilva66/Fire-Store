@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "rl_item_intake")
-public class ItemIntake implements Serializable {
+public class ItemOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,12 +34,10 @@ public class ItemIntake implements Serializable {
     @Positive(message = "Quantity must be positive")
     private Double quantity;
 
-    // Relacionamento com a tabela Sale
     @ManyToOne
-    @JoinColumn(name = "intake_id")
-    private Intake intake;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    // Relacionamento com a tabela Product
     @ManyToOne
     @JoinColumn(name = "product_id" )
     private Product product;

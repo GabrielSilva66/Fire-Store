@@ -1,4 +1,4 @@
-package com.project.system.controller.supplier;
+package com.project.system.controller;
 
 
 import com.project.system.models.Supplier;
@@ -19,8 +19,12 @@ import java.util.Optional;
 @Controller
 public class SupplierController {
 
+    private final SupplierRepository supplierRepository;
+
     @Autowired
-    SupplierRepository supplierRepository;
+    public SupplierController(SupplierRepository supplierRepository){
+        this.supplierRepository = supplierRepository;
+    }
 
     @GetMapping("/supplier/register")
     public ModelAndView registerSupplier(Supplier supplier){
@@ -48,7 +52,7 @@ public class SupplierController {
             mv.addObject("supplier", supplier.get());
             return mv;
         } else {
-            return listActiveSupplier(); // Se o funcionário não for encontrado
+            return listActiveSupplier();
         }
     }
 

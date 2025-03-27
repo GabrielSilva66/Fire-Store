@@ -1,8 +1,8 @@
 package com.project.system.repositories;
 
 import com.project.system.models.Order;
-import com.project.system.models.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SaleRepository extends JpaRepository<Sale, Long> {
+public interface OrderRepository extends JpaRepository<Order, Long> {
+
 }

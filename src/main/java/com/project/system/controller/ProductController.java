@@ -1,4 +1,4 @@
-package com.project.system.controller.product;
+package com.project.system.controller;
 
 import com.project.system.models.Product;
 import com.project.system.repositories.ProductRepository;
@@ -20,7 +20,13 @@ import java.util.Optional;
 public class ProductController {
 
     @Autowired
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public ProductController(ProductRepository productRepository){
+        this.productRepository = productRepository;
+    }
+
+
 
     @GetMapping("/product/register")
     public ModelAndView registerProduct(Product product){
