@@ -17,18 +17,19 @@
     <!-- Conteúdo Principal -->
     <main class="col-md-9 conteudo-geral">
       <div class="container table-container">
-        <h2 class="text-center mb-4">Lista de Fornecedores</h2>
+        <h2 classxt-cent="teer mb-4">Lista de Fornecedores</h2>
         <div class="table-responsive">
           <table class="table table-hover table-bordered" id="myTable">
             <thead class="table-dark">
             <tr>
               <!--                <th>ID</th>-->
               <th>Nome</th>
-              <th>Unidade de Medida</th>
               <th>Preço de Custo</th>
               <th>Preço de Venda</th>
-              <th>Código de Barra</th>
+              <th>Unidade de Medida</th>
               <th>Estoque</th>
+              <th>Código de Barra</th>
+              <th>Imagem URL</th>
               <th>Ações</th>
             </tr>
             </thead>
@@ -39,12 +40,8 @@
               <td th:text="${product.salePrice}"></td>
               <td th:text="${product.unitMeasure}"></td>
               <td th:text="${product.stock}"></td>
+              <td th:text="${product.pictureUrl}"></td>
               <td th:text="${product.codeBar}"></td>
-              <td>
-                <a th:href="@{/address/edit/EMPLOYEE/{id}(id=${product.id})}"
-                   th:text="${product.address != null ? 'Editar Endereço' : 'Registrar Endereço'}">
-                </a>
-              </td>
 
               <td class="text-center d-flex justify-content-center align-items-center gap-2">
                 <a th:href="@{/product/edit/{id}(id=${product.id})}"

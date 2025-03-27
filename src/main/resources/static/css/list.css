@@ -49,3 +49,14 @@
 .main-content .btn-danger {
     margin-top: 10px;
 }
+
+/* Remove as setas em campos do tipo number */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Para Firefox */
+}

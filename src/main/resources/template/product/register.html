@@ -31,15 +31,20 @@
                         </div>
                         <div class="mb-3">
                             <label for="costPrice" class="form-label">Preço de Custo:</label>
-                            <input type="text" class="form-control" id="costPrice" th:field="*{costPrice}" pattern="\d*" required aria-label="Product Cost Price">
+                            <input type="number" class="form-control" id="costPrice"
+                                   th:field="*{costPrice}" step="0.01" min="0" required
+                                   aria-label="Product Cost Price">
                         </div>
                         <div class="mb-3">
                             <label for="salePrice" class="form-label">Preço de Venda:</label>
-                            <input type="text" class="form-control" id="salePrice" th:field="*{salePrice}" pattern="\d*" required aria-label="Product Sale Price">
+                            <input type="number" class="form-control" id="salePrice"
+                                   th:field="*{salePrice}" step="0.01" min="0" required
+                                   aria-label="Product Sale Price">
                         </div>
+
                         <div class="mb-3">
                             <label for="stock" class="form-label">Estoque:</label>
-                            <input type="text" class="form-control" id="stock" th:field="*{stock}" pattern="\d*" required aria-label="Product Stock">
+                            <input type="number" class="form-control" id="stock" th:field="*{stock}" pattern="\d*" required aria-label="Product Stock">
                         </div>
                         <div class="mb-3">
                             <label for="codeBar" class="form-label">Código de Barra:</label>

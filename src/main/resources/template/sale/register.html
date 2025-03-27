@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz.thymeleaf/Layout">
+<head th:replace="~{fragment/layout :: head('FireStore - Cadastro de vendas', '../../static/css/register.css')}"></head>
+
+
+<body>
+
+<!-- Navbar -->
+<nav th:replace="~{fragment/layout :: nav_bar}"></nav>
+
+<div id="summaryBlock" class="summary-block">
+    <h3 class="text-center">Resumo da Venda</h3>
+    <p><strong>Quantidade: </strong> <span id="totalQuantity">0</span> </p>
+    <p><strong>Total : </strong> R$<span id="totalValue">0.00</span> </p>
+</div>
+
+<!-- Layout Principal -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Menu Lateral -->
+        <nav class="col-md-3" th:replace="~{fragment/layout :: menu}"></nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="col-md-9 conteudo-geral">
+            <div class="container my-5">
+                <div class="form-container mx-auto col-md-6">
+                    <h2 class="mb-4 text-center">Cadastro de vendas</h2>
+                    <form action="/sale/save" th:object="${sale}" method="POST">
+                        <input type="hidden" th:field="*{id}">
+
+                        <div class="mb-3">
+                            <label for="employee" class="form-label">Funcionário:</label>
+                            <select class="form-control" id="employee" th:field="*{employee}" required>
+                                <option value="">Selecione um funcionário</option>
+                                <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="customer" class="form-label">Cliente:</label>
+                            <select class="form-control" id="customer" th:field="*{customer}" required>
+                                <option value="">Selecione um cliente</option>
+                                <option th:each="cust : ${customers}" th:value="${cust.id}" th:text="${cust.name}"></option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="observation" class="form-label">Observação:</label>
+                            <input type="text" class="form-control" id="observation" th:field="*{observation}" required>
+                        </div>
+
+                        <div class="container">
+                            <h3>Selecione os Produtos</h3>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                        <!-- Criando uma tabela com checkboxes -->
+                                        <div class="table-responsive product-table">
+                                            <table class="table  table-hover table-bordered" id="myTable">
+                                                <thead class="table-dark">
+                                                <tr>
+                                                    <th>Selecionar</th>
+                                                    <th>Nome</th>
+                                                    <th>Preço</th>
+                                                    <th>Quantidade</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="product : ${products}">
+                                                    <td>
+                                                        <input type="checkbox" class="product-checkbox" data-price="${product.salePrice}" name="selectedProducts" th:value="${product.id}">
+                                                    </td>
+                                                    <td th:text="${product.name}"></td>
+                                                    <td th:text="${product.salePrice}"></td>
+                                                    <td>
+                                                        <input type="number" name="quantity" min="1" max="${product.stock)" value="1" data-quantity="1">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>
+
+
+<!-- Scripts do Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- DataTables e configuração do idioma para português -->
+<script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.11.5/i18n/pt_br.json"></script>
+
+<script>
+    // Inicializa tooltips do Bootstrap
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+  var table = new DataTable('#myTable', {
+      language: {
+          url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/pt-BR.json', // Caminho absoluto
+      },
+  });
+
+</script>
+<script src="../../static/js/mask.js"></script>
+<script src="../../static/js/sale/script.js" ></script>
+</body>
+</html>

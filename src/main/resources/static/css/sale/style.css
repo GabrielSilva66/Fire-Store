@@ -1,0 +1,14 @@
+.product-table{
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.summary-block {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+}
