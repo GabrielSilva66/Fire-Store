@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/layout :: head('FireStore - Produtos', '../../static/css/list.css')}"></head>
+<link href="../../static/css/footer.css" rel="stylesheet">
+<body>
+
+<!-- Navbar -->
+<nav th:replace="~{fragment/layout :: nav_bar}"></nav>
+
+<!-- Layout Principal -->
+<div class="container-fluid">
+    <div class="row">
+        <!-- Menu Lateral -->
+        <div class="col-md-3" th:replace="~{fragment/layout :: menu}"></div>
+
+        <!-- Conteúdo Principal -->
+        <main class="col-md-10 conteudo-geral">
+            <div class="container table-container">
+                <h2 classxt-cent="teer mb-4">Lista de Produtos</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered" id="myTable">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Preço de Custo</th>
+                            <th>Preço de Venda</th>
+                            <th>Unidade de Medida</th>
+                            <th>Quantidade</th>
+                            <th>Total</th>
+                            <th>Código de Barra</th>
+                            <th>Imagem URL</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="saleItem : ${saleItems}">
+                            <td th:text="${saleItem.product.name}"></td>
+                            <td th:text="'R$ ' + ${saleItem.product.costPrice}"></td>
+                            <td th:text="'R$ ' + ${saleItem.product.salePrice}"></td>
+                            <td th:text="${saleItem.product.unitMeasure}"></td>
+                            <td th:text="${saleItem.quantity}"></td>
+                            <td th:text="'R$ ' + ${saleItem.value}"></td>
+                            <td th:text="${saleItem.product.pictureUrl}"></td>
+                            <td th:text="${saleItem.product.codeBar}"></td>
+                        </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div th:replace="~{fragment/footer :: scripts}"></div>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+.footer {
+    background-color: #1a1a1a; /* Fundo escuro elegante */
+    color: #ffffff; /* Texto branco */
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    left: 0;
+
+}
+
+.footer p {
+    margin: 5px 0;
+}
+
+.footer .container-fluid {
+    flex: 1; /* Faz com que o conteúdo principal ocupe o espaço disponível */
+}
+
+.footer a {
+    color: #f8c12c; /* Amarelo dourado para links */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer a:hover {
+    color: #ffeb99; /* Efeito hover mais claro */
+}
+
+.footer .social-icons {
+    margin-top: 10px;
+}
+
+.footer .social-icons a {
+    margin: 0 10px;
+    font-size: 18px;
+    color: #ffffff;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.footer .social-icons a:hover {
+    color: #f8c12c;
+    transform: scale(1.2);
+}

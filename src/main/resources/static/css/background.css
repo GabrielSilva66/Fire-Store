@@ -1,0 +1,19 @@
+  body {
+      background: linear-gradient(to right, #ff6600, #cc4400); /* Gradiente de laranja para vermelho */
+      min-height: 100vh; /* Garante que o fundo cubra toda a altura da página */
+      color: white; /* Cor do texto para contraste */
+  }
+
+  /* Se você quiser que o conteúdo tenha um fundo mais claro, pode adicionar um fundo diferente para o conteúdo */
+  .conteudo-geral {
+      background: rgba(255, 255, 255, 0.9); /* Fundo semitransparente para o conteúdo */
+      border-radius: 10px; /* Adiciona bordas arredondadas */
+      padding: 20px;
+  }
+
+  /* Outras customizações que podem ser necessárias */
+  .table-container {
+      background: rgba(255, 255, 255, 0.8); /* Fundo semitransparente */
+      border-radius: 10px;
+      padding: 20px;
+  }

@@ -2,7 +2,7 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragment/layout :: head('FireStore - Clientes', '../../static/css/list.css')}"></head>
-
+<link href="../../static/css/footer.css" rel="stylesheet">
 <body>
 
 <!-- Navbar -->
@@ -31,23 +31,24 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="intake : ${intakeList}">
-              <td th:text="${intake.name}"></td>
-              <td th:text="${intake.email}"></td>
-              <td th:text="${intake.telephone}"></td>
+            <tr th:each="customer : ${customerList}">
+              <td th:text="${customer.name}"></td>
+              <td th:text="${customer.email}"></td>
+              <td th:text="${customer.telephone}"></td>
               <td>
-                <a th:href="@{/address/edit/EMPLOYEE/{id}(id=${intake.id})}"
-                   th:text="${intake.address != null ? 'Editar Endereço' : 'Registrar Endereço'}">
+                <a th:href="@{/address/edit/customer/{id}(id=${customer.id})}"
+                   th:text="${customer.address != null ? 'Editar Endereço' : 'Registrar Endereço'}">
                 </a>
               </td>
 
+              <!--              <td th:text="${customer.address}"></td>-->
               <td class="text-center d-flex justify-content-center align-items-center gap-2">
-                <a th:href="@{/intake/edit/{id}(id=${intake.id})}"
+                <a th:href="@{/customer/edit/{id}(id=${customer.id})}"
                    class="btn btn-warning btn-sm d-flex align-items-center justify-content-center"
                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </a>
-                <a th:href="@{/intake/delete/{id}(id=${intake.id})}"
+                <a th:href="@{/customer/delete/{id}(id=${customer.id})}"
                    class="btn btn-danger btn-sm d-flex align-items-center justify-content-center"
                    data-bs-toggle="tooltip" data-bs-placement="top" title="Excluir">
                   <i class="fa-solid fa-trash"></i>
@@ -57,7 +58,7 @@
             </tbody>
           </table>
         </div>
-        <a href="/intake/register" class="btn btn-primary">Novo Cliente</a>
+        <a href="/customer/register" class="btn btn-primary">Novo Cliente</a>
       </div>
     </main>
   </div>
@@ -71,20 +72,8 @@
 <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.11.5/i18n/pt_br.json"></script>
 
-<script>
-  // Inicializa tooltips do Bootstrap
-  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-
-var table = new DataTable('#myTable', {
-    language: {
-        url: 'https://cdn.datatables.net/plug-ins/2.1.8/i18n/pt-BR.json', // Caminho absoluto
-    },
-});
-
-</script>
+<div th:replace="~{fragment/footer :: scripts}"></div>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
 
 </body>
 </html>

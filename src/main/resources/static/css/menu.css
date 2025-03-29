@@ -38,3 +38,14 @@
         text-align: center;
     }
 }
+
+.nav-link.active {
+    font-weight: bold;
+    color: #fff !important;
+}
+
+.list-group-item.active {
+    background-color: #343a40 !important;
+    color: white !important;
+    font-weight: bold;
+}

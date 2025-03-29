@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragment/layout :: head('FireStore - Vendas', '../../static/css/list.css')}"></head>
+<link href="../../static/css/footer.css" rel="stylesheet">
+
+<body>
+
+<!-- Navbar -->
+<nav th:replace="~{fragment/layout :: nav_bar}"></nav>
+
+<!-- Layout Principal -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Menu Lateral -->
+    <div class="col-md-3" th:replace="~{fragment/layout :: menu}"></div>
+
+    <!-- Conteúdo Principal -->
+    <main class="col-md-9 conteudo-geral">
+      <div class="container table-container">
+        <h2 class="text-center mb-4">Lista de Entregas</h2>
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered" id="myTable">
+            <thead class="table-dark">
+            <tr>
+              <th>Data e Hora</th>
+              <th>Valor Total</th>
+              <th>Quantidade</th>
+              <th>Funcionário</th>
+              <th>Fornecedor</th>
+              <th>Observação</th>
+              <th>Produtos</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+              <td th:text="${#dates.format(order.date, 'dd/MM/yyyy HH:mm:ss')}"></td>
+              <td th:text="'R$ ' + ${order.totalValue}"></td>
+              <td th:text="${order.totalQuantity}"></td>
+              <td th:text="${order.employee.name}"></td>
+              <td th:text="${order.supplier.name}"></td>
+              <td th:text="${order.observation}"></td>
+              <td>
+                <a th:href="@{/order/products/{id}(id=${order.id})}"
+                   th:text="Detalhes">
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <a href="/order/register" class="btn btn-primary">Novo Fornecimento</a>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div th:replace="~{fragment/footer :: scripts}"></div>
+<footer th:replace="~{fragment/footer :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+/* Banner */
+.banner {
+    background: linear-gradient(to right, #ff6600, #cc4400);
+    height: 300px;
+    text-align: center;
+    padding: 50px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 250px; /* Ajuste o valor de acordo com a necessidade */
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+.card-body {
+    flex-grow: 1; /* Faz com que o conteúdo do cartão ocupe o restante da altura */
+}
+
+/* Ícones */
+.card i {
+    color: #ff6600;
+}
