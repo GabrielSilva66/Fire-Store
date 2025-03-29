@@ -1,7 +1,9 @@
 package com.project.system.controller;
 
-import com.project.system.models.Order;
-import com.project.system.models.ItemOrder;
+
+
+import com.project.system.dto.ItemDTO;
+import com.project.system.models.*;
 import com.project.system.repositories.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,99 +12,105 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Controller
 public class OrderController {
 
     private final OrderRepository orderRepository;
-    private final ItemOrderRepository itemOrderRepositoy;
-    private final ProductRepository productRepository;
+    private final ItemOrderRepository itemOrderRepository;
     private final EmployeeRepository employeeRepository;
     private final SupplierRepository supplierRepository;
-
-    private List<ItemOrder> listOrder = new ArrayList<>();
+    private final ProductRepository productRepository;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository, ItemOrderRepository itemOrderRepository,
-                           ProductRepository productRepository, EmployeeRepository employeeRepository,
-                           SupplierRepository  supplierRepository){
-
-        this.orderRepository = orderRepository;
-        this.itemOrderRepositoy = itemOrderRepository;
-        this.employeeRepository = employeeRepository;
+    public  OrderController(OrderRepository orderRepository, ItemOrderRepository itemOrderRepository,
+                           EmployeeRepository employeeRepository, SupplierRepository supplierRepository,
+                           ProductRepository productRepository) {
         this.productRepository = productRepository;
+        this.employeeRepository = employeeRepository;
+        this.itemOrderRepository = itemOrderRepository;
+        this.orderRepository = orderRepository;
         this.supplierRepository = supplierRepository;
 
     }
 
 
-
     @GetMapping("/order/register")
-    public ModelAndView registerOrder(Order order, ItemOrder itemOrder){
+    public ModelAndView registerOrder(Order order)  {
         ModelAndView mv = new ModelAndView("/order/register");
-        mv.addObject("order", order);
-        mv.addObject("itemOrder", itemOrder);
-        mv.addObject("listEmployee", employeeRepository.findAll());
-        mv.addObject("listSupplier", supplierRepository.findAll());
-        mv.addObject("listProduct", productRepository.findAll());
-        mv.addObject("listOrder", listOrder);
-        return  mv;
+        List<Employee> employees = employeeRepository.findAll();
+        List<Supplier> suppliers =supplierRepository.findAll();
+        mv.addObject("employees", employees);
+        mv.addObject("suppliers", suppliers);
+        mv.addObject("products", productRepository.findAll());
+        
+        return mv.addObject("order", order);
+
     }
 
     @GetMapping("/orders")
     public ModelAndView listOrders(){
-        List<Order> orders = orderRepository.findAll();
         ModelAndView mv = new ModelAndView("/order/list");
 
-        mv.addObject("listOrders", orders);
+        mv.addObject("activePage", "orders");
+        List<Order> orders = orderRepository.findAll();
+        mv.addObject("orders", orders);
+
+        return mv;
+    }
+
+    @GetMapping("/order/products/{id}")
+    public ModelAndView listProductsByOrder(@PathVariable("id") Long id){
+
+        List<ItemOrder> itemOrders = itemOrderRepository.findByOrderId(id);
+
+        List<ItemDTO> orderItems = itemOrders.stream().map
+                (itemOrder -> new ItemDTO(itemOrder.getProduct(), itemOrder.getQuantity(),
+                        itemOrder.getValue())).collect(Collectors.toList());
+
+
+        ModelAndView mv = new ModelAndView("/order/products");
+        mv.addObject("orderItems", orderItems);
+
         return  mv;
     }
 
 
-    @GetMapping("/order/edit/{id}")
-    public ModelAndView editOrder(@PathVariable("id") Long id){
-        Optional<Order> order = orderRepository.findById(id);
 
-        if (order.isPresent()){
-            ModelAndView mv = new ModelAndView("/order/register");
-            mv.addObject("order", order.get());
-            return mv;
+    @PostMapping("/order/save")
+    public ModelAndView save(@Valid Order order, BindingResult result,
+                             @RequestParam List<Long> productIds,
+                             @RequestParam List<Integer> quantities) {
+        if (result.hasErrors()) {
+            return registerOrder(order);
         }
-        return listOrders();
-    }
 
-
-    @GetMapping("/order/delete/{id}")
-    public ModelAndView deleteOrder(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
-        Optional<Order> order = orderRepository.findById(id);
-
-        if (order.isPresent()){
-            orderRepository.deleteById(id);
-            redirectAttributes.addFlashAttribute("message", "Order deleted");
-        } else{
-            redirectAttributes.addFlashAttribute("error", "Fail deleted order");
-        }
-        return listOrders();
-    }
-
-
-    @PostMapping("order/save")
-    public  ModelAndView saveOrder(@Valid Order order, ItemOrder itemOrder, BindingResult result){
-        if(result.hasErrors()){
-            return registerOrder(order, itemOrder);
-        }
         orderRepository.save(order);
+
+        for (int i = 0; i < productIds.size(); i++) {
+            Long productId = productIds.get(i);
+            Integer quantity = quantities.get(i);
+            Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
+
+            ItemOrder itemOrder = new ItemOrder();
+            itemOrder.setOrder(order);
+            itemOrder.setProduct(product);
+            itemOrder.setQuantity(quantity);
+            itemOrder.setValue(product.getSalePrice().multiply(BigDecimal.valueOf(quantity)).doubleValue());
+
+            // Salvar o item de venda
+            itemOrderRepository.save(itemOrder);
+        }
+
         return new ModelAndView("redirect:/orders");
-
     }
-
-
 
 
 }

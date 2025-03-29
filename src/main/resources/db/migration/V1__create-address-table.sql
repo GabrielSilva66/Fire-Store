@@ -1,4 +1,3 @@
-
 CREATE TABLE tb_address(
     id BIGSERIAL PRIMARY KEY,
     country VARCHAR(100) NOT NULL,
@@ -9,5 +8,4 @@ CREATE TABLE tb_address(
     number DECIMAL(10,0) NOT NULL CHECK (number > 0)
 
 );
-
 

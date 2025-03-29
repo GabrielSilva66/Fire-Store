@@ -1,4 +1,3 @@
-
 CREATE TABLE tb_supplier(
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,

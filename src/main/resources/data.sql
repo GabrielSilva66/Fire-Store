@@ -1,0 +1,37 @@
+---- Inserindo mais clientes
+--INSERT INTO tb_customer (name, email, telephone, is_active) VALUES
+--('João Mendes', 'joao.mendes@email.com', 11987654321, TRUE),
+--('Maria Oliveira', 'maria.oliveira@email.com', 11976543210, TRUE),
+--('Lucas Silva', 'lucas.silva@email.com', 11965432109, TRUE),
+--('Fernanda Costa', 'fernanda.costa@email.com', 11954321098, TRUE),
+--('Ricardo Almeida', 'ricardo.almeida@email.com', 11943210987, TRUE),
+--('Patrícia Santos', 'patricia.santos@email.com', 11932109876, TRUE),
+--('Gustavo Rocha', 'gustavo.rocha@email.com', 11921098765, TRUE);
+--
+---- Inserindo mais funcionários
+--INSERT INTO tb_employee (name, role, email, telephone, is_active) VALUES
+--('Carlos Silva', 'Gerente', 'carlos.silva@email.com', 11987654321 , TRUE),
+--('Ana Souza', 'Vendedora', 'ana.souza@email.com', 11998765432, TRUE),
+--('Roberto Lima', 'Caixa', 'roberto.lima@email.com', 11976543210, TRUE),
+--('Mariana Duarte', 'Atendente', 'mariana.duarte@email.com', 11965432109, TRUE),
+--('Pedro Henrique', 'Estoquista', 'pedro.henrique@email.com', 11954321098, TRUE),
+--('Beatriz Lima', 'Supervisora', 'beatriz.lima@email.com', 11943210987, TRUE);
+--
+---- Inserindo mais fornecedores
+--INSERT INTO tb_supplier (name, email, telephone, cnpj, is_active) VALUES
+--('Fornecedor A', 'fornecedorA@email.com', 11912345678, '12345678000195', TRUE),
+--('Fornecedor B', 'fornecedorB@email.com', 11998765432, '98765432000185', TRUE),
+--('Fornecedor C', 'fornecedorC@email.com', 11955554444, '11223344000166', TRUE),
+--('Fornecedor D', 'fornecedorD@email.com', 11944443333, '22334455000199', TRUE),
+--('Fornecedor E', 'fornecedorE@email.com', 11933332222, '33445566000188', TRUE);
+--
+---- Inserindo mais produtos
+--INSERT INTO tb_product (name, code_bar, unit_measure, cost_price, sale_price, stock, picture_url) VALUES
+--('Notebook Dell', '7891234567890', 'Unidade', 3500.00, 4500.00, 10, 'https://example.com/notebook.jpg'),
+--('Mouse Sem Fio', '7894561237890', 'Unidade', 50.00, 80.00, 50, 'https://example.com/mouse.jpg'),
+--('Teclado Mecânico', '7897891237890', 'Unidade', 150.00, 250.00, 30, 'https://example.com/teclado.jpg'),
+--('Monitor Full HD', '7896543217890', 'Unidade', 700.00, 1200.00, 15, 'https://example.com/monitor.jpg'),
+--('Impressora Multifuncional', '7899876547890', 'Unidade', 500.00, 850.00, 20, 'https://example.com/impressora.jpg'),
+--('Cadeira Gamer', '7893216547890', 'Unidade', 800.00, 1500.00, 12, 'https://example.com/cadeira.jpg'),
+--('SSD 1TB NVMe', '7894569877890', 'Unidade', 400.00, 650.00, 25, 'https://example.com/ssd.jpg'),
+--('Webcam Full HD', '7897896547890', 'Unidade', 120.00, 200.00, 40, 'https://example.com/webcam.jpg');

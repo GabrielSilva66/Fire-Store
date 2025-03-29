@@ -1,4 +1,3 @@
-
 CREATE TABLE tb_product(
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -6,7 +5,7 @@ CREATE TABLE tb_product(
     unit_measure VARCHAR(50) NOT NULL,
     cost_price DECIMAL(10, 2) NOT NULL CHECK (cost_price >= 0),
     sale_price DECIMAL(10, 2) NOT NULL  CHECK (sale_price >= 0),
-    stock DECIMAL(10, 0) NOT NULL  CHECK (stock >= 0),
+    stock BIGINT NOT NULL  CHECK (stock >= 0),
     picture_url VARCHAR(255)
 
 );

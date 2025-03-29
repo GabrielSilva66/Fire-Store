@@ -3,8 +3,8 @@ CREATE TABLE tb_sale(
     id BIGSERIAL PRIMARY KEY,
     observation VARCHAR(255) NOT NULL,
     total_value DECIMAL(10, 0) NOT NULL CHECK(total_value >= 0),
-    total_quantity DECIMAL(10, 0) NOT NULL CHECK(total_quantity >= 0),
-    date TIMESTAMP NOT NULL,
+    total_quantity BIGINT NOT NULL CHECK(total_quantity >= 0),
+    dt_created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     employee_id BIGINT,
     customer_id BIGINT,
 

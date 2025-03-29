@@ -8,7 +8,10 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 
@@ -36,24 +39,37 @@ public class Sale implements Serializable {
 
     @NotNull(message = "Total quantity is required")
     @Positive(message = "Total quantity must be positive")
-    private Double totalQuantity;
+    private Long totalQuantity = 0L;
 
-    @NotNull(message = "Date is required")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Column(name = "date", nullable = false)
-    private LocalDateTime date;
+    @Column(name = "dt_created_at")
+    private Timestamp date;
 
     @PrePersist
     public void onPrePersist() {
-        this.date = LocalDateTime.now();
+        this.date = Timestamp.from(Instant.now()); // Pega a hora exata do sistema
+
     }
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")  // Adicionando a coluna de relacionamento
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")  // Adicionando a coluna de relacionamento
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "customer=" + customer +
+                ", id=" + id +
+                ", observation='" + observation + '\'' +
+                ", totalValue=" + totalValue +
+                ", totalQuantity=" + totalQuantity +
+                ", date=" + date +
+                ", employee=" + employee +
+                '}';
+    }
 }

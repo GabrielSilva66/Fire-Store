@@ -25,7 +25,7 @@ public class ItemSale implements Serializable {
     private Long id;
 
     private Double value;
-    private Double quantity;
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "sale_id")

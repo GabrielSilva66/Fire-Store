@@ -6,6 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -33,17 +36,18 @@ public class Order implements Serializable {
 
     @NotNull(message = "Total quantity is required")
     @Positive(message = "Total quantity must be positive")
-    private Double totalQuantity = 0.00;
+    private Long totalQuantity = 0L;
 
-    @NotNull(message = "Date is required")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Column(name = "date", nullable = false)
-    private LocalDateTime date;
+    @Column(name = "dt_created_at")
+    private Timestamp date;
 
     @PrePersist
     public void onPrePersist() {
-        this.date = LocalDateTime.now();
+        this.date = Timestamp.from(Instant.now());
+
     }
+
 
     @ManyToOne
     @JoinColumn(name = "employee_id")

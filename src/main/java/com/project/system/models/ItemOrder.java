@@ -32,7 +32,7 @@ public class ItemOrder implements Serializable {
 
     @NotNull(message = "Quantity is required")
     @Positive(message = "Quantity must be positive")
-    private Double quantity;
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

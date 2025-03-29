@@ -54,7 +54,7 @@ public class Product  implements Serializable {
 
     @NotNull(message = "Stock is required")
     @PositiveOrZero(message = "Stock must be zero or positive")
-    private BigDecimal stock;
+    private long stock;
 
     @Column(name = "picture_url", nullable = true)
     @Size(max = 255, message = "Picture URL must not exceed 255 characters")
