@@ -1,0 +1,24 @@
+package com.firestore.adapters.outbound.repositories;
+
+import com.firestore.adapters.outbound.entities.JpaEmployeeEntity;
+import com.firestore.domain.employee.Employee;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+
+public interface JpaEmployeeRepository extends JpaRepository<JpaEmployeeEntity, Long> {
+
+    @Query(value = "SELECT * FROM tb_employee WHERE is_active = true", nativeQuery = true)
+    List<Employee> findActiveEmployee();
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE tb_employee SET is_active = :status WHERE id = :id", nativeQuery = true)
+    void updateEmployeeStatus(@Param("id") Long id, @Param("status") boolean status);
+
+}

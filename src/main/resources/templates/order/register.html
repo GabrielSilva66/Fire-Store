@@ -79,7 +79,7 @@
                                                     <input type="checkbox" class="product-checkbox" data-price="${product.costPrice}" name="selectedProducts" th:value="${product.id}">
                                                 </td>
                                                 <td th:text="${product.name}"></td>
-                                                <td th:text="${product.costPrice}" name="costPrice"></td>
+                                                <td th:text="${product.costPrice}" name="price"></td>
                                                 <td>
                                                     <input type="number" name="quantity" min="1"  value="1" data-quantity="1">
                                                 </td>
@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex gap-2 justify-content-between">
+                        <div style="border: 3px" class="d-flex gap-2 justify-content-between">
                             <button type="submit" class="btn btn-primary">Salvar</button>
                             <button href="/product/register" class="btn btn-secondary"> +Produto </button>
                         </div>

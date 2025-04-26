@@ -8,7 +8,7 @@ function updateSummary() {
   checkboxes.forEach((checkbox) => {
       const row = checkbox.closest('tr'); // Find the closest table row (tr)
       const quantity = parseInt(row.querySelector('input[name="quantity"]').value) || 0; // Get the quantity value
-      const value = parseFloat(row.querySelector('td:nth-child(3)').textContent.replace(',', '.')) || 0; // Get the price value
+      const value = parseFloat(row.querySelector('td[name="price"]').textContent) || 0; // Get the price value
 
       totalQuantity += quantity; // Add quantity to total quantity
       totalValue += quantity * value; // Add the total value to total value

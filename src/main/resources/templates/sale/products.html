@@ -15,7 +15,7 @@
         <div class="col-md-3" th:replace="~{fragment/layout :: menu}"></div>
 
         <!-- Conteúdo Principal -->
-        <main class="col-md-10 conteudo-geral">
+        <main class="col-md-9 conteudo-geral">
             <div class="container table-container">
                 <h2 classxt-cent="teer mb-4">Lista de Produtos</h2>
                 <div class="table-responsive">
@@ -40,8 +40,8 @@
                             <td th:text="${saleItem.product.unitMeasure}"></td>
                             <td th:text="${saleItem.quantity}"></td>
                             <td th:text="'R$ ' + ${saleItem.value}"></td>
-                            <td th:text="${saleItem.product.pictureUrl}"></td>
                             <td th:text="${saleItem.product.codeBar}"></td>
+                            <td th:text="${saleItem.product.pictureUrl}"></td>
                         </tr>
                         </tbody>
 
