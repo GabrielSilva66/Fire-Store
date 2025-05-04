@@ -40,10 +40,10 @@ public class ProductController {
 
     @GetMapping("/product/edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id){
-        Optional<Product> product = productService.findById(id);
-        if (product.isPresent()) {
+        Product product = productService.findById(id);
+        if (product != null) {
             ModelAndView mv = new ModelAndView("/product/register");
-            mv.addObject("product", product.get());
+            mv.addObject("product", product);
             return mv;
         } else {
             return listProduct();
@@ -52,8 +52,8 @@ public class ProductController {
 
     @GetMapping("/product/delete/{id}")
     public ModelAndView deleteActivateState(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Optional<Product> product = productService.findById(id);
-        if (product.isPresent()) {
+        Product product = productService.findById(id);
+        if (product != null) {
             productService.deleteById(id);
             redirectAttributes.addFlashAttribute("message", "Deleted product!");
         } else {

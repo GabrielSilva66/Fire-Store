@@ -13,7 +13,7 @@ import java.util.List;
 public interface JpaEmployeeRepository extends JpaRepository<JpaEmployeeEntity, Long> {
 
     @Query(value = "SELECT * FROM tb_employee WHERE is_active = true", nativeQuery = true)
-    List<Employee> findActiveEmployee();
+    List<JpaEmployeeEntity> findActiveEmployee();
 
 
     @Modifying

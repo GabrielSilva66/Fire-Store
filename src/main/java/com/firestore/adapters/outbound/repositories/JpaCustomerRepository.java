@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface JpaCustomerRepository extends JpaRepository<JpaCustomerEntity, Long> {
     @Query(value = "SELECT * FROM tb_customer WHERE is_active = true", nativeQuery = true)
-    List<Customer> findActiveCustomer();
+    List<JpaCustomerEntity> findActiveCustomer();
 
 
     @Modifying

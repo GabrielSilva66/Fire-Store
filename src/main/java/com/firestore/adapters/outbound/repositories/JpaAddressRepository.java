@@ -13,11 +13,12 @@ import java.util.List;
 public interface JpaAddressRepository extends JpaRepository<JpaAddressEntity, Long> {
 
     @Query(value = "SELECT * FROM tb_address WHERE is_active = true", nativeQuery = true)
-    List<Address> findActiveAddress();
+    List<JpaAddressEntity> findActiveAddress();
 
 
     @Modifying
     @Transactional
     @Query(value = "UPDATE tb_address SET is_active = :status WHERE id = :id", nativeQuery = true)
     void updateAddressStatus(@Param("id") Long id, @Param("status") boolean status);
+
 }

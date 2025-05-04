@@ -34,18 +34,21 @@ public class ItemOrderController {
 
     @GetMapping("/itemOrder/edit/{id}")
     public ModelAndView editItemOrder(@PathVariable("id") Long id){
-        Optional<ItemOrder> itemOrder = itemOrderService.findById(id);
+        ItemOrder itemOrder = itemOrderService.findById(id);
 
-        return itemOrder.map(order -> new ModelAndView("/itemOrder/register")
-                        .addObject("itemOrder", order))
-                .orElseGet(this::listItemOrders);
+        if (itemOrder != null) {
+            return new ModelAndView("/itemOrder/register")
+                    .addObject("itemOrder", itemOrder);
+        }
+
+        return listItemOrders();
     }
 
     @GetMapping("/itemOrders/delete/{id}")
     public ModelAndView deleteOrder(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){
-        Optional<ItemOrder> itemOrder = itemOrderService.findById(id);
+        ItemOrder itemOrder = itemOrderService.findById(id);
 
-        if (itemOrder.isPresent()){
+        if (itemOrder != null) {
             itemOrderService.deleteById(id);
             redirectAttributes.addFlashAttribute("message", "Item Order deleted");
         } else {

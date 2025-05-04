@@ -36,14 +36,17 @@ public class SupplierController {
 
     @GetMapping("/supplier/edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id) {
-        return supplierService.findById(id)
-                .map(supplier -> {
-                    ModelAndView mv = new ModelAndView("/supplier/register");
-                    mv.addObject("supplier", supplier);
-                    return mv;
-                })
-                .orElseGet(this::listActiveSupplier);
+        Supplier supplier = supplierService.findById(id);
+
+        if (supplier != null) {
+            ModelAndView mv = new ModelAndView("/supplier/register");
+            mv.addObject("supplier", supplier);
+            return mv;
+        }
+
+        return listActiveSupplier();
     }
+
 
     @GetMapping("/supplier/delete/{id}")
     public ModelAndView deleteActivateState(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {

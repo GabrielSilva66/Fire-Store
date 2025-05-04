@@ -37,17 +37,19 @@ public class EmployeeController {
 
     @GetMapping("/employee/edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id) {
-        Optional<Employee> employee = employeeService.findById(id);
-        return employee.map(value -> new ModelAndView("/employee/register")
-                        .addObject("employee", value))
-                .orElseGet(this::listActiveEmployee);
+        Employee employee = employeeService.findById(id);
+        if (employee != null) {
+            return new ModelAndView("/employee/register")
+                    .addObject("employee", employee);
+        }
+        return listActiveEmployee();
     }
 
     @GetMapping("/employee/delete/{id}")
     public ModelAndView deleteActivateState(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Optional<Employee> employee = employeeService.findById(id);
+        Employee employee = employeeService.findById(id);
 
-        if (employee.isPresent()) {
+        if (employee != null) {
             employeeService.deactivateEmployee(id);
             redirectAttributes.addFlashAttribute("message", "Funcionário marcado como inativo com sucesso!");
         } else {
@@ -57,13 +59,27 @@ public class EmployeeController {
         return new ModelAndView("redirect:/employees");
     }
 
+    @PutMapping("/employee/edit/{id}")
+    public ModelAndView update(@PathVariable("id") Long id) {
+        Employee employee = employeeService.findById(id);
+
+        if (employee != null) {
+            return new ModelAndView("/employee/register")
+                    .addObject("employee", employee);
+        }
+//        employeeService.update(employee);
+
+        return listActiveEmployee();
+    }
+
     @PostMapping("/employee/save")
     public ModelAndView save(@Valid Employee employee, BindingResult result) {
         if (result.hasErrors()) {
-            return registerEmployee(employee);
+            return new ModelAndView("/employee/register").addObject("employee", employee);
+
         }
 
-        employeeService.saveOrUpdate(employee);
+        employeeService.save(employee);
         return new ModelAndView("redirect:/employees");
     }
 }

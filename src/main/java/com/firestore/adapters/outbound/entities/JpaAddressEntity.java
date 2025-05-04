@@ -1,5 +1,6 @@
 package com.firestore.adapters.outbound.entities;
 
+import com.firestore.domain.Address.Address;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;

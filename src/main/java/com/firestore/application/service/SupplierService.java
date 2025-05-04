@@ -1,7 +1,8 @@
 package com.firestore.application.service;
 
+import com.firestore.application.usecases.SupplierUseCases;
 import com.firestore.domain.supplier.Supplier;
-import com.firestore.adapters.outbound.repositories.JpaSupplierRepository;
+import com.firestore.domain.supplier.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,12 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SupplierService {
+public class SupplierService  implements SupplierUseCases {
 
-    private final JpaSupplierRepository supplierRepository;
+    private final SupplierRepository supplierRepository;
 
     @Autowired
-    public SupplierService(JpaSupplierRepository supplierRepository) {
+    public SupplierService(SupplierRepository supplierRepository) {
         this.supplierRepository = supplierRepository;
     }
 
@@ -22,8 +23,8 @@ public class SupplierService {
         return supplierRepository.findActiveSupplier();
     }
 
-    public Optional<Supplier> findById(Long id) {
-        return supplierRepository.findById(id);
+    public Supplier findById(Long id) {
+        return supplierRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Supplier not found"));
     }
 
     public void saveSupplier(Supplier supplier) {
@@ -31,11 +32,11 @@ public class SupplierService {
     }
 
     public boolean deactivateSupplier(Long id) {
-        Optional<Supplier> supplier = supplierRepository.findById(id);
-        if (supplier.isPresent()) {
-            supplierRepository.updateSupplierStatus(id, false);
-            return true;
+        if(!supplierRepository.existsById(id)) {
+            throw new RuntimeException("Supplier not found");
         }
-        return false;
+
+        supplierRepository.updateSupplierStatus(id, false);
+        return true;
     }
 }

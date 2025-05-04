@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface JpaSupplierRepository extends JpaRepository<JpaSupplierEntity, Long> {
     @Query(value = "SELECT * FROM tb_supplier WHERE is_active = true", nativeQuery = true)
-    List<Supplier> findActiveSupplier();
+    List<JpaSupplierEntity> findActiveSuppliers();
 
 
     @Modifying

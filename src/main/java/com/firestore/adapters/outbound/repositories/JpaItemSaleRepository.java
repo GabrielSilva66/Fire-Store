@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface JpaItemSaleRepository extends JpaRepository<JpaItemSaleEntity, Long> {
-    List<ItemSale> findBySaleId(Long saleId);
+    List<JpaItemSaleEntity> findByJpaSaleId(Long saleId);
 }

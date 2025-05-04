@@ -2,6 +2,7 @@ package com.firestore.application.service;
 
 import com.firestore.domain.itemOrder.ItemOrder;
 import com.firestore.adapters.outbound.repositories.JpaItemOrderRepository;
+import com.firestore.domain.itemOrder.ItemOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,10 @@ import java.util.Optional;
 @Service
 public class ItemOrderService {
 
-    private final JpaItemOrderRepository itemOrderRepository;
+    private final ItemOrderRepository itemOrderRepository;
 
     @Autowired
-    public ItemOrderService(JpaItemOrderRepository itemOrderRepository) {
+    public ItemOrderService(ItemOrderRepository itemOrderRepository) {
         this.itemOrderRepository = itemOrderRepository;
     }
 
@@ -22,8 +23,8 @@ public class ItemOrderService {
         return itemOrderRepository.findAll();
     }
 
-    public Optional<ItemOrder> findById(Long id) {
-        return itemOrderRepository.findById(id);
+    public ItemOrder findById(Long id) {
+        return itemOrderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("ItemOrder not found"));
     }
 
     public ItemOrder save(ItemOrder itemOrder) {

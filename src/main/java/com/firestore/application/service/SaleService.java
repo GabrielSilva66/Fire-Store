@@ -1,13 +1,12 @@
 package com.firestore.application.service;
 
-
-
-import com.firestore.adapters.outbound.repositories.JpaItemSaleRepository;
-import com.firestore.adapters.outbound.repositories.JpaProductRepository;
-import com.firestore.adapters.outbound.repositories.JpaSaleRepository;
+import com.firestore.application.usecases.SaleUseCases;
 import com.firestore.domain.itemSale.ItemSale;
+import com.firestore.domain.itemSale.ItemSaleRepository;
 import com.firestore.domain.product.Product;
+import com.firestore.domain.product.ProductRepository;
 import com.firestore.domain.sale.Sale;
+import com.firestore.domain.sale.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +14,15 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class SaleService {
+public class SaleService implements SaleUseCases {
 
-    private final JpaSaleRepository saleRepository;
-    private final JpaItemSaleRepository itemSaleRepository;
-    private final JpaProductRepository productRepository;
+    private final SaleRepository saleRepository;
+    private final ItemSaleRepository itemSaleRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public SaleService(JpaSaleRepository saleRepository, JpaItemSaleRepository itemSaleRepository,
-                       JpaProductRepository productRepository) {
+    public SaleService(SaleRepository saleRepository, ItemSaleRepository itemSaleRepository,
+                       ProductRepository productRepository) {
         this.saleRepository = saleRepository;
         this.itemSaleRepository = itemSaleRepository;
         this.productRepository = productRepository;
@@ -42,9 +41,11 @@ public class SaleService {
 
         for (int i = 0; i < productIds.size(); i++) {
             Long productId = productIds.get(i);
+            if(!saleRepository.existsById(productId)) {
+                throw new RuntimeException("Product not found");
+            }
+            Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
             Integer quantity = quantities.get(i);
-            Product product = productRepository.findById(productId)
-                    .orElseThrow(() -> new RuntimeException("Product not found"));
 
             ItemSale itemSale = new ItemSale();
             itemSale.setSale(sale);

@@ -1,7 +1,8 @@
 package com.firestore.application.service;
 
+import com.firestore.application.usecases.ProductUseCases;
 import com.firestore.domain.product.Product;
-import com.firestore.adapters.outbound.repositories.JpaProductRepository;
+import com.firestore.domain.product.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +11,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class ProductService implements ProductUseCases {
 
-    private final JpaProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    public ProductService(JpaProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
@@ -23,16 +24,16 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
     }
 
     public void deleteById(Long id) {
         productRepository.deleteById(id);
     }
 
-    public Product save(Product product) {
+    public void save(Product product) {
         product.setCostPrice(new BigDecimal(product.getCostPrice().toString().replace(",", ".")));
-        return productRepository.save(product);
+        productRepository.save(product);
     }
 }

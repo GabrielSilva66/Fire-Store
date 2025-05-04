@@ -34,18 +34,19 @@ public class CustomerController {
                 .addObject("customerList", activeCustomers);
     }
 
-    @GetMapping("/customer/edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id){
-        Optional<Customer> customer = customerService.findById(id);
-        return customer.map(value -> new ModelAndView("/customer/register").addObject("customer", value))
-                .orElseGet(this::listActiveCustomer);
+        Customer customer = customerService.findById(id);
+        if (customer != null) {
+            return new ModelAndView("/customer/register").addObject("customer", customer);
+        }
+        return listActiveCustomer();
     }
 
     @GetMapping("/customer/delete/{id}")
     public ModelAndView deleteActivateState(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        Optional<Customer> customer = customerService.findById(id);
+        Customer customer = customerService.findById(id);
 
-        if (customer.isPresent()) {
+        if (customer != null) {
             customerService.deactivateCustomer(id);
             redirectAttributes.addFlashAttribute("message", "Cliente marcado como inativo com sucesso!");
         } else {
